@@ -1,11 +1,12 @@
 import pyvkontakte
 from vkontakte_gui import cache
 from vkontakte_gui import settings
+from vkontakte_gui.utils.vkontakte import VkontakteApi
 
 
 def api():
     """
-    :rtype: pyvkontakte.VkontakteApi
+    :rtype: vkontakte_gui.utils.vkontakte.VkontakteApi
     """
     api = cache.vkontakte['api']
     if not api:
@@ -14,7 +15,7 @@ def api():
 
 
 def login(login, password):
-    api = pyvkontakte.VkontakteApi.auth(login, password, settings.CLIENT_ID, settings.SCOPE)
-    cache.vkontakte['api'] = api
-    cache.vkontakte['access_token'] = api.access_token
+    auth_data = pyvkontakte.auth(login, password, settings.CLIENT_ID, settings.SCOPE)
+    cache.vkontakte['api'] = VkontakteApi(auth_data['access_token'])
+    cache.vkontakte['access_token'] = auth_data['access_token']
     return api

@@ -45,23 +45,21 @@ class ApiMixin:
 
 class LoginScreen(ScreenBase):
     def build(self):
-        anchor_layout = AnchorLayout(anchor=('center', 'top'))
         box_layout = BoxLayout(orientation='vertical', padding='20.0dp', size_hint=(None, None), spacing='10.0dp')
-        anchor_layout.add_widget(box_layout)
 
-        self.error_layout = GridLayout(size_hint=(None, None))
-        self.error_layout.rows = 1
-        box_layout.add_widget(self.error_layout)
+        #self.error_layout = GridLayout(size_hint=(None, None))
+        #self.error_layout.rows = 1
+        #box_layout.add_widget(self.error_layout)
 
-        self.login_input = TextInput(hint_text='Login', font_size='20.0dp', size_hint=(None, None))
-        self.password_input = TextInput(password=True, hint_text='Password', font_size='20.0dp', size_hint=(None, None))
+        self.login_input = TextInput(hint_text='Login', font_size='20.0dp', size=('300.0dp', '40.0dp'), size_hint=(None, None))
+        self.password_input = TextInput(password=True, hint_text='Password', font_size='20.0dp', size=('300.0dp', '40.0dp'), size_hint=(None, None))
         box_layout.add_widget(self.login_input)
         box_layout.add_widget(self.password_input)
 
-        self.login_button = Button(text='Login', font_size='20.0dp', size_hint=(None, None))
+        self.login_button = Button(text='Login', font_size='20.0dp', size=('300.0dp', '40.0dp'), size_hint=(None, None))
         self.login_button.bind(on_press=self.login)
         box_layout.add_widget(self.login_button)
-        self.add_widget(anchor_layout)
+        self.add_widget(box_layout)
 
     def login(self, button):
         login = self.login_input.text.strip()

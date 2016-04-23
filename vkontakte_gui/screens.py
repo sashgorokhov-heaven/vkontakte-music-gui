@@ -1,6 +1,8 @@
 import logging
 
 from kivy.clock import Clock
+from kivy.uix.anchorlayout import AnchorLayout
+from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
@@ -43,32 +45,21 @@ class ApiMixin:
 
 class LoginScreen(ScreenBase):
     def build(self):
-        layout = GridLayout()
-        layout.rows = 2
+        box_layout = BoxLayout(orientation='vertical', padding='20.0dp')
+        self.add_widget(box_layout)
 
-        self.error_layout = GridLayout(size_hint_y=None)
-        self.error_layout.rows = 1
-        layout.add_widget(self.error_layout)
+        #self.error_layout = GridLayout()
+        #self.error_layout.rows = 1
+        #box_layout.add_widget(self.error_layout)
 
-        login_layout = GridLayout()
-        login_layout.cols = 2
-        login_layout.rows = 3
+        self.login_input = TextInput(hint_text='Login', font_size='20.0dp', height='40.0dp')
+        self.password_input = TextInput(password=True, hint_text='Password', font_size='20.0dp', height='40.0dp')
+        box_layout.add_widget(self.login_input)
+        box_layout.add_widget(self.password_input)
 
-        login_layout.add_widget(Label(text='Login'))
-
-        self.login_input = TextInput()
-        login_layout.add_widget(self.login_input)
-        login_layout.add_widget(Label(text='Password'))
-
-        self.password_input = TextInput(password=True)
-        login_layout.add_widget(self.password_input)
-
-        login_button = Button(text='Login')
-        login_button.bind(on_press=self.login)
-        login_layout.add_widget(login_button)
-
-        layout.add_widget(login_layout)
-        self.add_widget(layout)
+        self.login_button = Button(text='Login', font_size='20.0dp', height='40.0dp')
+        self.login_button.bind(on_press=self.login)
+        box_layout.add_widget(self.login_button)
 
     def login(self, button):
         login = self.login_input.text.strip()
